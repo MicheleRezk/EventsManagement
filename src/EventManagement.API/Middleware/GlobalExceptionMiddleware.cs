@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using EventManagement.Application.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -66,7 +67,7 @@ public class GlobalExceptionMiddleware
                 problemDetails.Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
                 break;
             
-            case KeyNotFoundException:
+            case NotFoundException:
                 response.StatusCode = (int)HttpStatusCode.NotFound;
                 problemDetails.Status = (int)HttpStatusCode.NotFound;
                 problemDetails.Title = "Resource Not Found";

@@ -17,8 +17,10 @@ public static class DependencyInjection
             .AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>())
             .AddScoped<IDatabaseUpgradeStrategy, DatabaseMigrator>();
         
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
+        services.AddHttpContextAccessor(); 
 
         return services;
     }
