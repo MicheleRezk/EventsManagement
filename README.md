@@ -22,3 +22,7 @@
    a. Name
    b. Phone number
    c. Email address
+
+
+Command used to add Create DB Migration:
+dotnet ef migrations add InitialCreate --project EventManagement.Infrastructure --startup-project EventManagement.API
