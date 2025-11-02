@@ -1,4 +1,6 @@
 using System.Text;
+using EventManagement.API.Extensions;
+using EventManagement.Application;
 using EventManagement.Application.Configurations;
 using EventManagement.Infrastructure;
 using EventManagement.Infrastructure.Interfaces;
@@ -47,6 +49,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Configure JWT Authentication
 var securityConfiguration = builder.Configuration.GetSection("Security").Get<SecurityConfiguration>()!;
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -62,7 +65,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Register Infrastructure services
+// Add Application and Infrastructure layers
+builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
@@ -83,6 +87,7 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseGlobalExceptionHandling();
 app.MapControllers();
 
 using var applicationServices = app.Services.CreateScope();
