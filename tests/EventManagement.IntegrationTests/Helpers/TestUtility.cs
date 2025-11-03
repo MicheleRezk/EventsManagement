@@ -38,7 +38,7 @@ public static class TestUtility
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public static void ClearAuthorizationHeader(HttpClient client)
+    public static void ClearAuthorizationHeader(this HttpClient client)
     {
         client.DefaultRequestHeaders.Authorization = null;
     }

@@ -64,7 +64,7 @@ public class AuthTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task GivenValidCredentials_WhenLoggingIn_ThenShouldReturnJwtToken()
     {
-        // Arrange - Register user first
+        // Arrange
         var email = "loginuser@example.com";
         var password = "password123";
         var registerDto = new RegisterUserDto(email, "Login User", password);

@@ -23,7 +23,7 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task GivenEventsExist_WhenGettingAllEvents_ThenShouldReturnEventsList()
     {
-        // Arrange - Create authenticated user and event
+        // Arrange
         await TestUtility.CreateAuthenticatedUserAsync(_client, "creator1@example.com", "Creator1", "password123");
 
         var createEventDto = new CreateEventDto(
@@ -35,9 +35,8 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
 
         var content = new StringContent(JsonSerializer.Serialize(createEventDto), Encoding.UTF8, "application/json");
         await _client.PostAsync(ApiRoutes.Events.Create, content);
-
-        // Clear auth for public access
-        TestUtility.ClearAuthorizationHeader(_client);
+        
+        _client.ClearAuthorizationHeader();
 
         // Act
         var response = await _client.GetAsync(ApiRoutes.Events.GetAll);
@@ -141,7 +140,7 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task GivenExistingEvent_WhenRegisteringWithValidData_ThenShouldCreateRegistration()
     {
-        // Arrange - Create event first
+        // Arrange
         await TestUtility.CreateAuthenticatedUserAsync(_client, "creator4@example.com", "Creator 4", "password123");
 
         var createEventDto = new CreateEventDto(
@@ -155,9 +154,8 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         var eventResponse = await _client.PostAsync(ApiRoutes.Events.Create, eventContent);
         var eventResponseContent = await eventResponse.Content.ReadAsStringAsync();
         var createdEvent = JsonSerializer.Deserialize<EventDto>(eventResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        // Clear auth for public registration
-        TestUtility.ClearAuthorizationHeader(_client);
+        
+        _client.ClearAuthorizationHeader();
 
         // Register for event
         var registerDto = new RegisterForEventDto("Michele George", "+1234567890", "michele.george@gmail.com");
@@ -197,8 +195,9 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         var eventResponseContent = await eventResponse.Content.ReadAsStringAsync();
         var createdEvent = JsonSerializer.Deserialize<EventDto>(eventResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-        // Clear auth and register someone
-        TestUtility.ClearAuthorizationHeader(_client);
+        // Clear auth and register using particpant user
+        _client.ClearAuthorizationHeader();
+        
         var registerDto = new RegisterForEventDto("Michele George", "+0987654321", "michele.george@example.com");
         var registerContent = new StringContent(JsonSerializer.Serialize(registerDto), Encoding.UTF8, "application/json");
         await _client.PostAsync(ApiRoutes.Events.Register(createdEvent!.Id), registerContent);
@@ -237,9 +236,8 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         var createResponse = await _client.PostAsync(ApiRoutes.Events.Create, eventContent);
         var createResponseContent = await createResponse.Content.ReadAsStringAsync();
         var createdEvent = JsonSerializer.Deserialize<EventDto>(createResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        // Clear auth for public access
-        TestUtility.ClearAuthorizationHeader(_client);
+        
+        _client.ClearAuthorizationHeader();
 
         // Act
         var response = await _client.GetAsync(ApiRoutes.Events.GetById(createdEvent!.Id));
@@ -290,8 +288,8 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         var eventResponseContent = await eventResponse.Content.ReadAsStringAsync();
         var createdEvent = JsonSerializer.Deserialize<EventDto>(eventResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-        // Authenticate as different user
-        TestUtility.ClearAuthorizationHeader(_client);
+        // Authenticate as a different user
+        _client.ClearAuthorizationHeader();
         await TestUtility.CreateAuthenticatedUserAsync(_client, "other@example.com", "Other User", "password123");
 
         // Act
