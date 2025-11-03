@@ -95,3 +95,10 @@ var databaseUpgradeStrategy = applicationServices.ServiceProvider.GetRequiredSer
 databaseUpgradeStrategy.Upgrade();
 
 app.Run();
+
+namespace EventManagement.API
+{
+    public partial class Program
+    {
+    }
+}
