@@ -3,4 +3,4 @@ using MediatR;
 
 namespace EventManagement.Application.Features.Events.Queries;
 
-public record GetEventsCreatedByUserQuery() : IRequest<IEnumerable<EventDto>>;
+public record GetEventsCreatedByUserQuery() : IRequest<IEnumerable<DetailedEventDto>>;

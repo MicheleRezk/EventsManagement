@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManagement.Application.Features.Events.Handlers;
 
-public class GetEventsCreatedByUserQueryHandler : IRequestHandler<GetEventsCreatedByUserQuery, IEnumerable<EventDto>>
+public class
+    GetEventsCreatedByUserQueryHandler : IRequestHandler<GetEventsCreatedByUserQuery, IEnumerable<DetailedEventDto>>
 {
     private readonly IApplicationDbContext _context;
     private readonly ICurrentUserService _currentUserService;
@@ -17,23 +18,31 @@ public class GetEventsCreatedByUserQueryHandler : IRequestHandler<GetEventsCreat
         _currentUserService = currentUserService;
     }
 
-    public async Task<IEnumerable<EventDto>> Handle(GetEventsCreatedByUserQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<DetailedEventDto>> Handle(GetEventsCreatedByUserQuery request,
+        CancellationToken cancellationToken)
     {
         if (!_currentUserService.IsAuthenticated || !_currentUserService.UserId.HasValue)
             throw new UnauthorizedAccessException("User must be authenticated to view their events.");
 
         var events = await _context.Events
             .Where(e => e.CreatedByUserId == _currentUserService.UserId.Value)
+            .Include(e => e.Registrations)
             .OrderBy(e => e.StartTime)
             .ToListAsync(cancellationToken);
 
-        return events.Select(e => new EventDto(
+        return events.Select(e => new DetailedEventDto(
             e.Id,
             e.Name,
             e.Description,
             e.Location,
             e.StartTime,
             e.EndTime,
-            e.CreatedByUserId));
+            e.Registrations.Select(r => new RegistrationDto(
+                r.Id,
+                r.EventId,
+                r.Name,
+                r.PhoneNumber,
+                r.Email)
+            )));
     }
 }

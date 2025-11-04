@@ -69,7 +69,7 @@ public class EventsController : ControllerBase
     [Authorize]
     [HttpGet("creator")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<EventDto>>> GetEventsCreatedByUser()
+    public async Task<ActionResult<IEnumerable<DetailedEventDto>>> GetEventsCreatedByUser()
     {
         var query = new GetEventsCreatedByUserQuery();
         var result = await _mediator.Send(query);

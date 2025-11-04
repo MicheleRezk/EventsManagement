@@ -59,7 +59,6 @@ public class GetEventsCreatedByUserQueryHandlerTests : IDisposable
         // Assert
         result.Should().NotBeNull();
         result.Should().HaveCount(2);
-        result.Should().OnlyContain(e => e.CreatedByUserId == _testUserId);
 
         var eventsList = result.ToList();
         eventsList[0].Name.Should().Be("User Event 2");
