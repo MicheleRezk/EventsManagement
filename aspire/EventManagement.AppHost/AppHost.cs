@@ -14,10 +14,6 @@ var eventsDb = postgresServer.AddDatabase("eventsdb");
 // Add API project
 var api = builder.AddProject<Projects.EventManagement_API>("event-management-api")
     .WaitFor(postgresServer)
-    .WithReference(eventsDb)
-    .WithEnvironment("Security__JwtKey", builder.Configuration["Security:JwtKey"])
-    .WithEnvironment("Security__JwtIssuer", builder.Configuration["Security:JwtIssuer"])
-    .WithEnvironment("Security__JwtAudience", builder.Configuration["Security:JwtAudience"])
-    ;
+    .WithReference(eventsDb);
 
 builder.Build().Run();

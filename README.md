@@ -56,13 +56,19 @@ dotnet ef migrations add <MigrationName> --project EventManagement.Infrastructur
 ## 🚀 Running the Project Locally
 
 Follow the steps below to run the Event Management API using **.NET Aspire**.
----
 
 #### ✅ 1. Add JWT Key to User Secrets
 #### ✅ 2. run the .net aspire (AppHost)
 #### ✅ 3. click on the link to open the swagger page (http://localhost:5124/swagger/index.html)
 #### ✅ 4. create a user and event
 #### ✅ 4. check the database from pgadmin url in the .net aspire dashboard
+
+you must configure a strong JWT signing key using **.NET User Secrets**.  
+Run this command inside the **EventManagement.API** project directory:
+
+```bash
+dotnet user-secrets set "Security:JwtKey" "ThisIsASuperStrongJwtSigningKey_AtLeast64CharactersLong\!\!\!1234567890"
+```
 
 ![Aspire Dashboard](./assets/aspire.png)
 ![Swagger](./assets/swagger.png)
