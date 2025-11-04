@@ -50,7 +50,7 @@ public class EventsController : ControllerBase
         return CreatedAtAction(nameof(GetEventById), new { id = eventId }, result);
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<EventDto>> CreateEvent([FromBody] CreateEventDto request)
