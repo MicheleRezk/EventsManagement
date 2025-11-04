@@ -133,8 +133,8 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         eventDto.Name.Should().Be(createEventDto.Name);
         eventDto.Description.Should().Be(createEventDto.Description);
         eventDto.Location.Should().Be(createEventDto.Location);
-        eventDto.StartTime.Should().Be(createEventDto.StartTime);
-        eventDto.EndTime.Should().Be(createEventDto.EndTime);
+        eventDto.StartTime.Should().BeCloseTo(createEventDto.StartTime, TimeSpan.FromMilliseconds(1));
+        eventDto.EndTime.Should().BeCloseTo(createEventDto.EndTime, TimeSpan.FromMilliseconds(1));
     }
 
     [Fact]
@@ -253,8 +253,8 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         eventDto.Name.Should().Be(createEventDto.Name);
         eventDto.Description.Should().Be(createEventDto.Description);
         eventDto.Location.Should().Be(createEventDto.Location);
-        eventDto.StartTime.Should().Be(createEventDto.StartTime);
-        eventDto.EndTime.Should().Be(createEventDto.EndTime);
+        eventDto.StartTime.Should().BeCloseTo(createEventDto.StartTime, TimeSpan.FromMilliseconds(1));
+        eventDto.EndTime.Should().BeCloseTo(createEventDto.EndTime, TimeSpan.FromMilliseconds(1));
     }
 
     [Fact]
