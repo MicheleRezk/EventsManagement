@@ -1,5 +1,5 @@
-using EventManagement.Application.DTOs;
 using EventManagement.Application.Exceptions;
+using EventManagement.Application.Features.Events.DTOs;
 using EventManagement.Application.Features.Events.Queries;
 using EventManagement.Application.Interfaces;
 using MediatR;

@@ -1,8 +1,7 @@
 using System.Security.Claims;
 using EventManagement.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
 
-namespace EventManagement.Infrastructure.Services;
+namespace EventManagement.API.Services;
 
 public class CurrentUserService : ICurrentUserService
 {

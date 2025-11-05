@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using EventManagement.Application.DTOs;
+using EventManagement.Application.Features.Events.DTOs;
 using EventManagement.IntegrationTests.Constants;
 using EventManagement.IntegrationTests.Helpers;
 using FluentAssertions;

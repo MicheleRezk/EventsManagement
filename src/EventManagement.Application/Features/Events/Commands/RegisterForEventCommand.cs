@@ -1,4 +1,4 @@
-using EventManagement.Application.DTOs;
+using EventManagement.Application.Features.Events.DTOs;
 using MediatR;
 
 namespace EventManagement.Application.Features.Events.Commands;

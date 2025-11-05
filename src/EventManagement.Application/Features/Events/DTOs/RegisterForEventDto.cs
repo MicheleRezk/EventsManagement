@@ -1,4 +1,4 @@
-namespace EventManagement.Application.DTOs;
+namespace EventManagement.Application.Features.Events.DTOs;
 
 public record RegisterForEventDto(
     string Name,

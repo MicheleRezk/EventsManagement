@@ -1,5 +1,5 @@
-using EventManagement.Application.DTOs;
 using EventManagement.Application.Features.Events.Commands;
+using EventManagement.Application.Features.Events.DTOs;
 using EventManagement.Application.Features.Events.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

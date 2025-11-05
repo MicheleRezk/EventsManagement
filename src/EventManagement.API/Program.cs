@@ -1,7 +1,9 @@
 using System.Text;
 using EventManagement.API.Extensions;
+using EventManagement.API.Services;
 using EventManagement.Application;
 using EventManagement.Application.Configurations;
+using EventManagement.Application.Interfaces;
 using EventManagement.Infrastructure;
 using EventManagement.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -66,6 +68,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Add Application and Infrastructure layers
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 

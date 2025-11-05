@@ -15,6 +15,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Event> Events => Set<Event>();
     public DbSet<Registration> Registrations => Set<Registration>();
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.AddInterceptors(new EntityBaseInterceptor());
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

@@ -1,7 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using EventManagement.Application.DTOs;
 using EventManagement.Application.Features.User.DTOs;
 using EventManagement.IntegrationTests.Constants;
 using FluentAssertions;
