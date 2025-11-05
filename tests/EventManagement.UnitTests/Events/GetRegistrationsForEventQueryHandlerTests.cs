@@ -70,7 +70,7 @@ public class GetRegistrationsForEventQueryHandlerTests : IDisposable
         
         var aliceRegistration = registrationsList.First(r => r.Name == registration2.Name);
         aliceRegistration.Id.Should().Be(registration2.Id);
-        aliceRegistration.EventId.Should().Be(eventId);
+        aliceRegistration.Name.Should().Be(registration2.Name);
         aliceRegistration.Email.Should().Be(registration2.Email);
     }
 
@@ -176,6 +176,7 @@ public class GetRegistrationsForEventQueryHandlerTests : IDisposable
         var otherRegistration = TestDataHelper.CreateTestRegistration(eventId: otherEventId);
         otherRegistration.Name = "Other Registrant";
 
+        var expectedRegisterdAt = DateTime.UtcNow;
         _context.Registrations.AddRange(targetRegistration, otherRegistration);
         await _context.SaveChangesAsync();
 
@@ -188,7 +189,7 @@ public class GetRegistrationsForEventQueryHandlerTests : IDisposable
         result.Should().NotBeNull();
         result.Should().HaveCount(1);
         result.First().Name.Should().Be(targetRegistration.Name);
-        result.First().EventId.Should().Be(targetEventId);
+        result.First().RegisteredAt.Should().BeCloseTo(expectedRegisterdAt, TimeSpan.FromSeconds(1));
     }
 
     public void Dispose()

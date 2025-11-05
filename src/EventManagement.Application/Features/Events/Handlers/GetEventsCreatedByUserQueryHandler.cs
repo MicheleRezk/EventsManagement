@@ -39,10 +39,10 @@ public class
             e.EndTime,
             e.Registrations.Select(r => new RegistrationDto(
                 r.Id,
-                r.EventId,
                 r.Name,
                 r.PhoneNumber,
-                r.Email)
+                r.Email,
+                r.CreatedAt)
             )));
     }
 }

@@ -46,9 +46,9 @@ public class RegisterForEventCommandHandler : IRequestHandler<RegisterForEventCo
 
         return new RegistrationDto(
             registration.Id,
-            registration.EventId,
             registration.Name,
             registration.PhoneNumber,
-            registration.Email);
+            registration.Email,
+            registration.CreatedAt);
     }
 }

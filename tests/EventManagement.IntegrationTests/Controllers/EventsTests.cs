@@ -162,6 +162,7 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         var registerContent = new StringContent(JsonSerializer.Serialize(registerDto), Encoding.UTF8, "application/json");
 
         // Act
+        var expectedCreatedAt = DateTime.UtcNow;
         var response = await _client.PostAsync(ApiRoutes.Events.Register(createdEvent!.Id), registerContent);
 
         // Assert
@@ -173,7 +174,7 @@ public class EventsTests : IClassFixture<CustomWebApplicationFactory>
         result.Should().NotBeNull();
         result!.Name.Should().Be(registerDto.Name);;
         result.Email.Should().Be(registerDto.Email);
-        result.EventId.Should().Be(createdEvent.Id);
+        result.RegisteredAt.Should().BeCloseTo(expectedCreatedAt, TimeSpan.FromSeconds(1));
     }
 
     [Fact]

@@ -39,7 +39,6 @@ public class RegisterForEventCommandHandlerTests : IDisposable
 
         // Assert
         result.Should().NotBeNull();
-        result.EventId.Should().Be(eventId);
         result.Name.Should().Be("John Doe");
         result.PhoneNumber.Should().Be("+1234567890");
         result.Email.Should().Be("john.doe@example.com");
@@ -134,7 +133,6 @@ public class RegisterForEventCommandHandlerTests : IDisposable
 
         // Assert
         result.Should().NotBeNull();
-        result.EventId.Should().Be(event2Id);
         result.Email.Should().Be("same@example.com");
 
         var registrationCount = await _context.Registrations.CountAsync();
